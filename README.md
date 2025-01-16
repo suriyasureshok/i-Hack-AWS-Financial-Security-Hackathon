@@ -33,7 +33,7 @@ This project aims to build a comprehensive system using AWS services to detect a
 - **AWS Step Functions**: Orchestrates the workflow between different AWS services.
 
 ## System Architecture
-![High-Level Architecture](architecture-diagrams/high-level-architecture.png)
+![High-Level Architecture](Blue and Yellow Illustrative Playful Boost Your Immune System Infographic Poster.png)
 
 ## Setup and Installation
 1. Clone this repository to your local machine:
