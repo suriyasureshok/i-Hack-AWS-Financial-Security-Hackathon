@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+
+  SpamAudioBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: 'spam-audio-bucket'
+
+  DeepfakeVideoBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: 'deepfake-video-bucket'
+
+  TransactionDataBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: 'transaction-data-bucket'
+
+  AudioPreprocessingLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      FunctionName: 'audioPreprocessingFunction'
+      Runtime: 'python3.8'
+      Handler: 'audio_preprocessing.lambda_handler'
+      Role: 'arn:aws:iam::123456789012:role/LambdaExecutionRole'
+      Code:
+        S3Bucket: 'lambda-code-bucket'
+        S3Key: 'audio_preprocessing.zip'
+
+  FraudAlertTopic:
+    Type: 'AWS::SNS::Topic'
+    Properties:
+      TopicName: 'fraud-alerts'
+
+  LambdaExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Action: 'sts:AssumeRole'
+            Principal:
+              Service: 'lambda.amazonaws.com'
+      Policies:
+        - PolicyName: 'LambdaExecutionPolicy'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 's3:GetObject'
+                  - 's3:PutObject'
+                Resource: '*'
+              - Effect: 'Allow'
+                Action:
+                  - 'sns:Publish'
+                Resource: 'arn:aws:sns:us-east-1:123456789012:fraud-alerts'
+
+Outputs:
+  SpamAudioBucketName:
+    Description: 'Spam Audio Bucket Name'
+    Value: !Ref SpamAudioBucket
+  DeepfakeVideoBucketName:
+    Description: 'Deepfake Video Bucket Name'
+    Value: !Ref DeepfakeVideoBucket
