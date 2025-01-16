@@ -1,0 +1,32 @@
+{
+    "Comment": "Fraud Detection Workflow",
+    "StartAt": "PreprocessData",
+    "States": {
+      "PreprocessData": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:us-east-1:123456789012:function:audioPreprocessingFunction",
+        "Next": "DetectSpam"
+      },
+      "DetectSpam": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:us-east-1:123456789012:function:spamDetectionFunction",
+        "Next": "DetectDeepfake"
+      },
+      "DetectDeepfake": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:us-east-1:123456789012:function:deepfakeDetectionFunction",
+        "Next": "AnalyzeTransaction"
+      },
+      "AnalyzeTransaction": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:us-east-1:123456789012:function:transactionAnalysisFunction",
+        "Next": "DecisionMaker"
+      },
+      "DecisionMaker": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:us-east-1:123456789012:function:decisionMakerLambda",
+        "End": true
+      }
+    }
+  }
+  
