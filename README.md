@@ -38,8 +38,8 @@ This project aims to build a comprehensive system using AWS services to detect a
 ## Setup and Installation
 1. Clone this repository to your local machine:
     ```bash
-    git clone https://github.com/yourusername/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/yourusername/i-Hack-AWS-Financial-Security-Hackathon.git
+    cd i-Hack-AWS-Financial-Security-Hackathon
     ```
 
 2. Install the required dependencies:
